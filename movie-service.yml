@@ -3,9 +3,8 @@ server:
 
 spring:
   datasource:
-    ## Substitua as credencias pelas do seu ambiente local
-    url: jdbc:mysql://localhost/movie-service?createDatabaseIfNotExist=true&serverTimezone=UTC-3&useSSL=false
-    username: perseidasdev
+    url: jdbc:mysql://localhost/movie-service?createDatabaseIfNotExist=true&serverTimezone=UTC-3&useSSl=false
+    username: perseidasdev # Alterar as credenciais para o ambiente local
     password:
 
   jpa:
