@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: movie-service
+
+  config:
+    import: optional:configserver:http://localhost:8888
+
+queue:
+  movie-service:
+    name: MovieServiceQueue
+
+message: Movie service is up
+
+info:
+  app:
+    name: ${spring.application.name}
+    version: 1.0.0
+    description: Movie Service Application
+  svc:
+    port: ${server.port}
