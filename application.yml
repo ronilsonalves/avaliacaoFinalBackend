@@ -1,0 +1,28 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  info:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info 
+
+info:
+  author: Ronilson Alves
+  mail: falecom@ronilsonalves.com
+server:
+  port: ${PORT:8091}
+message: Configurações Genéricas
+
+spring:
+  cloud:
+    ineutils:
+      timeout-seconds: 10
+logging:
+  level:
+    org.springframework.cloud.commons.util.InetUtils: trace
