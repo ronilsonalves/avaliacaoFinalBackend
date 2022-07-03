@@ -7,3 +7,6 @@ spring:
     password: guest
     host: rabbitmq-service
     port: 5672
+
+info:
+  name: Series service application!
