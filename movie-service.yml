@@ -1,7 +1,7 @@
 server:
   port: 8082
 
-#spring:
+spring:
 #  datasource:
 #    url: jdbc:mysql://localhost/movie-service?createDatabaseIfNotExist=true&serverTimezone=UTC-3&useSSl=false
 #    username: perseidasdev # Alterar as credenciais para o ambiente local
