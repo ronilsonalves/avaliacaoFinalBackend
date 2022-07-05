@@ -1,7 +1,5 @@
 server:
   port: 8072
-  servlet:
-    context-path: /catalog/
 
 spring:
   rabbitmq:
