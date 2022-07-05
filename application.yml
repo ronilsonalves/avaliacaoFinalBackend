@@ -1,6 +1,10 @@
 eureka:
+  instance:
+    hostname: localhost
   client:
-    service-url:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
       defaultZone: http://eureka-service:8761/eureka/
 
 management:
