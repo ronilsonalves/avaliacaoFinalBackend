@@ -1,7 +1,7 @@
 eureka:
   client:
     service-url:
-      defaultZone: ${eureka-service}/eureka
+      defaultZone: http://eureka-service:8761/eureka/
 
 management:
   info:
