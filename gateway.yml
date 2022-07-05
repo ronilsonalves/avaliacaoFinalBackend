@@ -5,15 +5,15 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: movieRoute
+        - id: movie-service
           uri: lb://MOVIE-SERVICE
           predicates:
             - Path=/movie/**
-        - id: catalogRoute
+        - id: catalog-service
           uri: lb://CATALOG-SERVICE
           predicates:
             - Path=/catalog/**
-        - id: seriesRoute
+        - id: series-service
           uri: lb://SERIES-SERVICE
           predicates:
             - Path=/series/**
