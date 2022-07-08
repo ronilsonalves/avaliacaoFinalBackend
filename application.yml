@@ -1,3 +1,18 @@
+spring:
+
+  cloud:
+    ineutils:
+      timeout-seconds: 10
+      
+  zipikin:
+    base-url: http://zipikin-service:9411/
+
+  rabbitmq:
+    username: guest
+    password: guest
+    host: rabbitmq-service
+    port: 5672
+
 eureka:
   instance:
     hostname: ${spring.application.name}
@@ -23,10 +38,6 @@ server:
   port: ${PORT:8091}
 message: Configurações Genéricas
 
-spring:
-  cloud:
-    ineutils:
-      timeout-seconds: 10
 logging:
   level:
     org.springframework.cloud.commons.util.InetUtils: trace

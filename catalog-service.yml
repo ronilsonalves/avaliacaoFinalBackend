@@ -2,11 +2,17 @@ server:
   port: 8072
 
 spring:
-  rabbitmq:
-    username: guest
-    password: guest
-    host: rabbitmq-service
-    port: 5672
+  # rabbitmq:
+  #   username: guest
+  #   password: guest
+  #   host: rabbitmq-service
+  #   port: 5672
+
+  data:
+    mongodb:
+      host: mongo-service
+      port: 27017
+      database: catalogServiceDB
 
 
 ## Resilience4J configs for CircuitBreaker Pattern

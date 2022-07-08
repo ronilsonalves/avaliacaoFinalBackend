@@ -2,11 +2,21 @@ server:
   port: 8092
   
 spring:
-  rabbitmq:
-    username: guest
-    password: guest
-    host: rabbitmq-service
-    port: 5672
+
+  data:
+    mongodb:
+    host: mongo-service
+    port: 27017
+    database: serieServiceDB
+
+  # rabbitmq:
+  #   username: guest
+  #   password: guest
+  #   host: rabbitmq-service
+  #   port: 5672
+
+  # zipikin:
+  #   base-url: http://zipikin-service:9411/
 
 info:
   name: Series service application!
