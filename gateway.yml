@@ -17,3 +17,12 @@ spring:
           uri: lb://SERIES-SERVICE
           predicates:
             - Path=/series/**
+
+management:
+  info:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,actuator

@@ -2,11 +2,15 @@ server:
   port: 8072
 
 spring:
-  # rabbitmq:
-  #   username: guest
-  #   password: guest
-  #   host: rabbitmq-service
-  #   port: 5672
+
+  zipikin:
+    base-url: http://zipikin-service:9411/
+
+  rabbitmq:
+    username: guest
+    password: guest
+    host: rabbitmq-service
+    port: 5672
 
   data:
     mongodb:
@@ -46,7 +50,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: circuitbreakers,circuitbreakerevents,health,info
+        include: circuitbreakers,circuitbreakerevents,health,info,actuator
   info:
     env:
       enabled: true

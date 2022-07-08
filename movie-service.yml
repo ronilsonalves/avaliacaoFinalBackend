@@ -12,6 +12,9 @@ spring:
     hibernate:
       ddl-auto: update
 
+  zipikin:
+    base-url: http://zipikin-service:9411/
+
   rabbitmq:
     username: guest
     password: guest
@@ -50,7 +53,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: circuitbreakers,circuitbreakerevents,health,info
+        include: circuitbreakers,circuitbreakerevents,health,info,actuator
   info:
     env:
       enabled: true
