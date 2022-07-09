@@ -47,6 +47,71 @@ spring:
                 name: seriesService
                 fallbackUri: forward:/fallback/seriesServiceFallBack
 
+## Resilience4J configs for CircuitBreaker Pattern
+resilience4j:
+  circuitbreaker:
+    instances:
+      movie-service:
+        allowHealthIndicatorToFail: false
+        registerHealthIndicator: true
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 5
+        failueRateThreshold: 50
+        waitDurationInOpenState: 50s
+        permittedNumberOfCalssInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfIfOpenEnabled: true
+      series-service:
+        allowHealthIndicatorToFail: false
+        registerHealthIndicator: true
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 5
+        failueRateThreshold: 50
+        waitDurationInOpenState: 50s
+        permittedNumberOfCalssInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfIfOpenEnabled: true
+      catalog-service:
+        allowHealthIndicatorToFail: false
+        registerHealthIndicator: true
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 5
+        failueRateThreshold: 50
+        waitDurationInOpenState: 50s
+        permittedNumberOfCalssInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfIfOpenEnabled: true
+
+
+  retry:
+    instances:
+      movie-service:
+        maxAttempts: 3
+        waitDuration: 10s
+
+        retryExceptions:
+          - feign.FeignException$InternalServerError
+          - org.springframework.web.client.HttpServerErrorException
+          - java.util.concurrent.TimeoutException
+          - java.io.IOException
+
+      series-service:
+        maxAttempts: 3
+        waitDuration: 10s
+
+        retryExceptions:
+          - feign.FeignException$InternalServerError
+          - org.springframework.web.client.HttpServerErrorException
+          - java.util.concurrent.TimeoutException
+          - java.io.IOException
+
+      catalog-service:
+        maxAttempts: 3
+        waitDuration: 10s
+
+        retryExceptions:
+          - feign.FeignException$InternalServerError
+          - org.springframework.web.client.HttpServerErrorException
+          - java.util.concurrent.TimeoutException
+          - java.io.IOException
+
 management:
   info:
     env:
@@ -54,4 +119,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,actuator
+        include: circuitbreakers,circuitbreakerevents,health,info,actuator
