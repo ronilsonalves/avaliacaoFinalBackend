@@ -7,6 +7,8 @@ import com.ronilsonalves.serieservice.repository.SerieRepository;
 import com.ronilsonalves.serieservice.repository.SeasonRepository;
 import com.ronilsonalves.serieservice.repository.ChapterRepository;
 import com.ronilsonalves.serieservice.service.SerieService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -29,21 +31,29 @@ public class SerieServiceImpl implements SerieService {
 
 
     @Override
+    @CircuitBreaker(name="series-service")
+    @Retry(name="series-service")
     public List<Serie> getSeriesByGenre(String genre) {
         return serieRepository.findAllByGenre(genre);
     }
 
     @Override
+    @CircuitBreaker(name="series-service")
+    @Retry(name="series-service")
     public List<Serie> getSeries() {
         return serieRepository.findAll();
     }
 
     @Override
+    @CircuitBreaker(name="series-service")
+    @Retry(name="series-service")
     public Serie getSerieById(String serieId) {
         return serieRepository.findById(serieId).orElse(null);
     }
 
     @Override
+    @CircuitBreaker(name="series-service")
+    @Retry(name="series-service")
     public Serie saveSerie(Serie serie) {
         //log.info("Starting to save on mongo: "+serie.getName()+"...");
         List<Season> seasonsToBeCreated = serie.getSeasons().stream().filter(season -> season.getId() == null).collect(Collectors.toList());

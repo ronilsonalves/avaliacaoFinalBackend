@@ -27,14 +27,14 @@ public class CatalogServiceImpl implements CatalogService {
     private final SerieRepository serieRepository;
     private final MovieRepository movieRepository;
 
-    private RabbitTemplate rabbitTemplate;
-
     @Override
     public Movie getMovieById(String movieId) {
         return movieRepository.findById(movieId).orElse(null);
     }
 
     @Override
+    @CircuitBreaker(name="catalogServiceCircuitBreaker")
+    @Retry(name="catalogServiceCircuitBreaker")
     public CatalogDTO getCatalogByGenre(String genre) {
         List<Movie> movies = movieRepository.findAllByGenre(genre);
         List<Serie> series = serieRepository.findAllByGenre(genre);
@@ -42,6 +42,8 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
+    @CircuitBreaker(name="catalogServiceCircuitBreaker")
+    @Retry(name="catalogServiceCircuitBreaker")
     public void addNewMovie(Movie movie){
         log.info("Received a Movie by message from Rabbit Queue to save the Movie on CatalogService...");
         movieRepository.save(movie);
@@ -49,6 +51,8 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
+    @CircuitBreaker(name="catalogServiceCircuitBreaker")
+    @Retry(name="catalogServiceCircuitBreaker")
     public void addNewSerie(Serie serie) {
         log.info("Received a Series by message from Rabbit Queue to save the Series on CatalogService...");
         serieRepository.save(serie);

@@ -3,6 +3,8 @@ package com.ronilsonalves.movieservice.service.impl;
 import com.ronilsonalves.movieservice.model.Movie;
 import com.ronilsonalves.movieservice.repository.MovieRepository;
 import com.ronilsonalves.movieservice.service.MovieService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -20,16 +22,22 @@ public class MovieServiceImpl implements MovieService {
     private RabbitTemplate rabbitTemplate;
 
     @Override
+    @CircuitBreaker(name="movie-service")
+    @Retry(name="movie-service")
     public List<Movie> getAllByGenre(String genre) {
         return movieRepository.findAllByGenre(genre);
     }
 
     @Override
+    @CircuitBreaker(name="movie-service")
+    @Retry(name="movie-service")
     public Movie getMovieById(Long movieId) {
         return movieRepository.findById(movieId).orElse(null);
     }
 
     @Override
+    @CircuitBreaker(name="movie-service")
+    @Retry(name="movie-service")
     public Movie saveMovie(Movie movie) {
         log.info("Saving new movie on service's database...");
         Movie movieSaved = movieRepository.save(movie);
