@@ -26,7 +26,7 @@ spring:
           filters:
             - name: CircuitBreaker
               args:
-                name: movie-service
+                name: movieServiceCircuitBreaker
                 fallbackUri: forward:/fallback/movieServiceFallBack
         - id: catalog-service
           uri: lb://CATALOG-SERVICE
@@ -35,7 +35,7 @@ spring:
           filters:
             - name: CircuitBreaker
               args:
-                name: catalog-service
+                name: catalogServiceCircuitBreaker
                 fallbackUri: forward:/fallback/catalogServiceFallBack
         - id: series-service
           uri: lb://SERIES-SERVICE
@@ -44,73 +44,73 @@ spring:
           filters:
             - name: CircuitBreaker
               args:
-                name: series-service
+                name: seriesServiceCircuitBreaker
                 fallbackUri: forward:/fallback/seriesServiceFallBack
 
 ## Resilience4J configs for CircuitBreaker Pattern
-resilience4j:
-  circuitbreaker:
-    instances:
-      movie-service:
-        allowHealthIndicatorToFail: false
-        registerHealthIndicator: true
-        slidingWindowType: COUNT_BASED
-        slidingWindowSize: 5
-        failueRateThreshold: 50
-        waitDurationInOpenState: 50s
-        permittedNumberOfCalssInHalfOpenState: 3
-        automaticTransitionFromOpenToHalfIfOpenEnabled: true
-      series-service:
-        allowHealthIndicatorToFail: false
-        registerHealthIndicator: true
-        slidingWindowType: COUNT_BASED
-        slidingWindowSize: 5
-        failueRateThreshold: 50
-        waitDurationInOpenState: 50s
-        permittedNumberOfCalssInHalfOpenState: 3
-        automaticTransitionFromOpenToHalfIfOpenEnabled: true
-      catalog-service:
-        allowHealthIndicatorToFail: false
-        registerHealthIndicator: true
-        slidingWindowType: COUNT_BASED
-        slidingWindowSize: 5
-        failueRateThreshold: 50
-        waitDurationInOpenState: 50s
-        permittedNumberOfCalssInHalfOpenState: 3
-        automaticTransitionFromOpenToHalfIfOpenEnabled: true
+# resilience4j:
+#   circuitbreaker:
+#     instances:
+#       movie-service:
+#         allowHealthIndicatorToFail: false
+#         registerHealthIndicator: true
+#         slidingWindowType: COUNT_BASED
+#         slidingWindowSize: 5
+#         failueRateThreshold: 50
+#         waitDurationInOpenState: 50s
+#         permittedNumberOfCalssInHalfOpenState: 3
+#         automaticTransitionFromOpenToHalfIfOpenEnabled: true
+#       series-service:
+#         allowHealthIndicatorToFail: false
+#         registerHealthIndicator: true
+#         slidingWindowType: COUNT_BASED
+#         slidingWindowSize: 5
+#         failueRateThreshold: 50
+#         waitDurationInOpenState: 50s
+#         permittedNumberOfCalssInHalfOpenState: 3
+#         automaticTransitionFromOpenToHalfIfOpenEnabled: true
+#       catalog-service:
+#         allowHealthIndicatorToFail: false
+#         registerHealthIndicator: true
+#         slidingWindowType: COUNT_BASED
+#         slidingWindowSize: 5
+#         failueRateThreshold: 50
+#         waitDurationInOpenState: 50s
+#         permittedNumberOfCalssInHalfOpenState: 3
+#         automaticTransitionFromOpenToHalfIfOpenEnabled: true
 
 
-  retry:
-    instances:
-      movie-service:
-        maxAttempts: 3
-        waitDuration: 10s
+#   retry:
+#     instances:
+#       movie-service:
+#         maxAttempts: 3
+#         waitDuration: 10s
 
-        retryExceptions:
-          - feign.FeignException$InternalServerError
-          - org.springframework.web.client.HttpServerErrorException
-          - java.util.concurrent.TimeoutException
-          - java.io.IOException
+#         retryExceptions:
+#           - feign.FeignException$InternalServerError
+#           - org.springframework.web.client.HttpServerErrorException
+#           - java.util.concurrent.TimeoutException
+#           - java.io.IOException
 
-      series-service:
-        maxAttempts: 3
-        waitDuration: 10s
+#       series-service:
+#         maxAttempts: 3
+#         waitDuration: 10s
 
-        retryExceptions:
-          - feign.FeignException$InternalServerError
-          - org.springframework.web.client.HttpServerErrorException
-          - java.util.concurrent.TimeoutException
-          - java.io.IOException
+#         retryExceptions:
+#           - feign.FeignException$InternalServerError
+#           - org.springframework.web.client.HttpServerErrorException
+#           - java.util.concurrent.TimeoutException
+#           - java.io.IOException
 
-      catalog-service:
-        maxAttempts: 3
-        waitDuration: 10s
+#       catalog-service:
+#         maxAttempts: 3
+#         waitDuration: 10s
 
-        retryExceptions:
-          - feign.FeignException$InternalServerError
-          - org.springframework.web.client.HttpServerErrorException
-          - java.util.concurrent.TimeoutException
-          - java.io.IOException
+#         retryExceptions:
+#           - feign.FeignException$InternalServerError
+#           - org.springframework.web.client.HttpServerErrorException
+#           - java.util.concurrent.TimeoutException
+#           - java.io.IOException
 
 management:
   info:
