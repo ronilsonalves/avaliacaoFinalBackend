@@ -13,9 +13,9 @@ spring:
 
   data:
     mongodb:
-    host: mongo-service
-    port: 27017
-    database: serieServiceDB
+      host: mongo-service
+      port: 27017
+      database: serieServiceDB
 
 info:
   name: Series service application!
