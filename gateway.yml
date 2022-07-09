@@ -23,14 +23,29 @@ spring:
           uri: lb://MOVIE-SERVICE
           predicates:
             - Path=/movie/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: moviesService
+                fallbackUri: forward:/fallback/movieServiceFallBack
         - id: catalog-service
           uri: lb://CATALOG-SERVICE
           predicates:
             - Path=/catalog/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: catalogService
+                fallbackUri: forward:/fallback/catalogServiceFallBack
         - id: series-service
           uri: lb://SERIES-SERVICE
           predicates:
             - Path=/series/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: seriesService
+                fallbackUri: forward:/fallback/seriesServiceFallBack
 
 management:
   info:
@@ -40,20 +55,3 @@ management:
     web:
       exposure:
         include: health,info,actuator
-
-
-    gateway:
-      default-filters:
-        - TokenRelay
-  security:
-    oauth2:
-      client:
-        #        provider:
-        #          google:
-        #            issuer-uri: https://account.google.com
-        registration:
-          google:
-            client-id: 406906485125-1plnfuuomv8cgedee080j4apfv4e4bot.apps.googleusercontent.com
-            client-secret: ${nomeVariavel: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}
-            scope: openid
-            redirect-uri: http://localhost:8080/login/oauth2/code/google
