@@ -2,8 +2,22 @@ server:
   port: 8080
 
 spring:
+  security:
+    oauth2:
+      client:
+        #        provider:
+        #          google:
+        #            issuer-uri: https://account.google.com
+        registration:
+          google:
+            client-id: 186124423952-bgn7qbrkts4crd46hsq5unhb70ai1uev.apps.googleusercontent.com
+            client-secret: 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
+            scope: openid
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
   cloud:
     gateway:
+      default-filters:
+        - TokenRelay
       routes:
         - id: movie-service
           uri: lb://MOVIE-SERVICE
@@ -13,7 +27,7 @@ spring:
           uri: lb://CATALOG-SERVICE
           predicates:
             - Path=/catalog/**
-        - id: serie-service
+        - id: series-service
           uri: lb://SERIES-SERVICE
           predicates:
             - Path=/series/**
@@ -26,3 +40,20 @@ management:
     web:
       exposure:
         include: health,info,actuator
+
+
+    gateway:
+      default-filters:
+        - TokenRelay
+  security:
+    oauth2:
+      client:
+        #        provider:
+        #          google:
+        #            issuer-uri: https://account.google.com
+        registration:
+          google:
+            client-id: 406906485125-1plnfuuomv8cgedee080j4apfv4e4bot.apps.googleusercontent.com
+            client-secret: ${nomeVariavel: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}
+            scope: openid
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
