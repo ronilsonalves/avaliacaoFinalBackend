@@ -5,49 +5,46 @@ spring:
   security:
     oauth2:
       client:
-        #        provider:
-        #          google:
-        #            issuer-uri: https://account.google.com
         registration:
           google:
             client-id: 186124423952-bgn7qbrkts4crd46hsq5unhb70ai1uev.apps.googleusercontent.com
             client-secret: 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
             scope: openid
             redirect-uri: http://localhost:8080/login/oauth2/code/google
-  cloud:
-    gateway:
-      default-filters:
-        - TokenRelay
-      routes:
-        - id: movie-service
-          uri: lb://MOVIE-SERVICE
-          predicates:
-            - Path=/movie/**
-          filters:
-            - name: CircuitBreaker
-              args:
-                name: movieServiceCircuitBreaker
-                fallbackUri: forward:/fallback/movieServiceFallBack
-        - id: catalog-service
-          uri: lb://CATALOG-SERVICE
-          predicates:
-            - Path=/catalog/**
-          filters:
-            - name: CircuitBreaker
-              args:
-                name: catalogServiceCircuitBreaker
-                fallbackUri: forward:/fallback/catalogServiceFallBack
-        - id: series-service
-          uri: lb://SERIES-SERVICE
-          predicates:
-            - Path=/series/**
-          filters:
-            - name: CircuitBreaker
-              args:
-                name: seriesServiceCircuitBreaker
-                fallbackUri: forward:/fallback/seriesServiceFallBack
+#   cloud:
+#     gateway:
+#       default-filters:
+#         - TokenRelay
+#       routes:
+#         - id: movie-service
+#           uri: lb://MOVIE-SERVICE
+#           predicates:
+#             - Path=/movie/**
+#           filters:
+#             - name: CircuitBreaker
+#               args:
+#                 name: movieServiceCircuitBreaker
+#                 fallbackUri: forward:/fallback/movieServiceFallBack
+#         - id: catalog-service
+#           uri: lb://CATALOG-SERVICE
+#           predicates:
+#             - Path=/catalog/**
+#           filters:
+#             - name: CircuitBreaker
+#               args:
+#                 name: catalogServiceCircuitBreaker
+#                 fallbackUri: forward:/fallback/catalogServiceFallBack
+#         - id: series-service
+#           uri: lb://SERIES-SERVICE
+#           predicates:
+#             - Path=/series/**
+#           filters:
+#             - name: CircuitBreaker
+#               args:
+#                 name: seriesServiceCircuitBreaker
+#                 fallbackUri: forward:/fallback/seriesServiceFallBack
 
-## Resilience4J configs for CircuitBreaker Pattern
+# # Resilience4J configs for CircuitBreaker Pattern
 # resilience4j:
 #   circuitbreaker:
 #     instances:
