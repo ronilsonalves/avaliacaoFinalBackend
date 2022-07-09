@@ -1,11 +1,11 @@
-#!/bin/bash
+## !/bin/bash
 
 echo "docker-compose down"
 docker-compose down
 echo "docker-compose rm -f"
 docker-compose rm -f
 
-echo "build"
+echo "building packages before docker img build"
 cd ApiGateway
 mvn clean package -DskipTests
 cd ..

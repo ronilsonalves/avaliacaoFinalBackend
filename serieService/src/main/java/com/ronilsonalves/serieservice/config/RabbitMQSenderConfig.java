@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQSenderConfig {
 
-    @Value("${queue.serie-service.name")
-    private String serieServiceQueue;
+    @Value("${queue.series-service.name}")
+    private String seriesServiceQueue;
 
     @Bean Queue queue () {
-        return new Queue(this.serieServiceQueue, false);
+        return new Queue(this.seriesServiceQueue, false);
     }
 }

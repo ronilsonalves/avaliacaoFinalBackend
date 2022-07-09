@@ -1,11 +1,11 @@
 spring:
   application:
-    name: serie-service
+    name: series-service
 
-  data:
-    mongodb:
-      uri: mongodb+srv://avFinalSpring:7xp0xcnsVVwu9KMU@bancodedadoscluster.b6b8d.mongodb.net/springAv?retryWrites=true&w=majority
-      database: springAv
+#  data:
+#    mongodb:
+#      uri: mongodb+srv://mongo-service/serieService?retryWrites=true&w=majority
+#      database: serieService
 
   zipkin:
     base-url: http://zipkin-service:9411/
@@ -23,8 +23,8 @@ eureka:
       defautZone: http://eureka-service:8761/eureka/
 
 queue:
-  serie-service:
-    name: SerieServiceQueue
+  series-service:
+    name: SeriesServiceQueue
 message: Serie service is up
 
 info:

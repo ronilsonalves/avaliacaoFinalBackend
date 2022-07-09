@@ -5,6 +5,12 @@ spring:
     name: config-service
   zipkin:
     base-url: http://zipkin-service:9411/
+
+  rabbitmq:
+    host: rabbitmq
+    username: guest
+    password: guest
+
   cloud:
     config:
       server:
@@ -13,7 +19,7 @@ spring:
           default-label: configFiles
 eureka:
   instance:
-    hostname: localhost
+    hostname: ${spring.application.name}
   client:
     registerWithEureka: true
     fetchRegistry: true

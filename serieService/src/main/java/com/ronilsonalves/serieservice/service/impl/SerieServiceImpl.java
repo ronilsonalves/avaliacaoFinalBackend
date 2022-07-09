@@ -7,6 +7,7 @@ import com.ronilsonalves.serieservice.repository.SerieRepository;
 import com.ronilsonalves.serieservice.repository.SeasonRepository;
 import com.ronilsonalves.serieservice.repository.ChapterRepository;
 import com.ronilsonalves.serieservice.service.SerieService;
+import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,10 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class SerieServiceImpl implements SerieService {
 
-    private static Logger log = Logger.getLogger(SerieServiceImpl.class.getName());
+    private static final Logger log = Logger.getLogger(SerieServiceImpl.class.getName());
 
     private RabbitTemplate rabbitTemplate;
 
@@ -25,11 +27,6 @@ public class SerieServiceImpl implements SerieService {
     private final SeasonRepository seasonRepository;
     private final ChapterRepository chapterRepository;
 
-    public SerieServiceImpl( SerieRepository serieRepository, SeasonRepository seasonRepository, ChapterRepository chapterRepository) {
-        this.serieRepository = serieRepository;
-        this.seasonRepository = seasonRepository;
-        this.chapterRepository = chapterRepository;
-    }
 
     @Override
     public List<Serie> getSeriesByGenre(String genre) {
@@ -67,7 +64,7 @@ public class SerieServiceImpl implements SerieService {
         //log.info("The seasons has been saved!\nStarting to save the serie on mongo database...");
         serie.getSeasons().clear();
         serie.getSeasons().addAll(seasonsSaved);
-        rabbitTemplate.convertAndSend("SerieServiceQueue",serie);
+        rabbitTemplate.convertAndSend("SeriesServiceQueue",serie);
         return serieRepository.save(serie);
     }
 }

@@ -8,10 +8,10 @@ spring:
   config:
     import: optional:configserver:http://config-service:8888
 
-  data:
-    mongodb:
-      uri: mongodb+srv://avFinalSpring:7xp0xcnsVVwu9KMU@bancodedadoscluster.b6b8d.mongodb.net/springAv?retryWrites=true&w=majority
-      database: springAv
+#  data:
+#    mongodb:
+#      uri: mongodb+srv://avFinalSpring:7xp0xcnsVVwu9KMU@bancodedadoscluster.b6b8d.mongodb.net/catalogService?retryWrites=true&w=majority
+#      database: catalogService
 
 eureka:
   instance:
@@ -25,8 +25,8 @@ eureka:
 queue:
   movie-service:
     name: MovieServiceQueue
-  serie-service:
-    name: SerieServiceQueue
+  series-service:
+    name: SeriesServiceQueue
 
 message: Catalog service is up
 

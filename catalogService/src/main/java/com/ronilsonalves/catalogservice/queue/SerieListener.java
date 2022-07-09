@@ -12,7 +12,7 @@ public class SerieListener {
 
     private final CatalogServiceImpl catalogService;
 
-    @RabbitListener(queues = {"${queue.serie-service.name}"})
+    @RabbitListener(queues = {"${queue.series-service.name}"})
     public void receiveMessage(Serie serie) {
         catalogService.addNewSerie(serie);
     }

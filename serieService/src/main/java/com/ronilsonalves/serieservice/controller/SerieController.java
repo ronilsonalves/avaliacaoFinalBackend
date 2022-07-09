@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/serie")
+@RequestMapping("/series")
 @AllArgsConstructor
 public class SerieController {
     private final SerieServiceImpl serieService;

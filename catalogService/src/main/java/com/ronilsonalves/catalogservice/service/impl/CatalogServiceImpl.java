@@ -16,10 +16,13 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 @AllArgsConstructor
 public class CatalogServiceImpl implements CatalogService {
+
+    private static final Logger log = Logger.getLogger(CatalogServiceImpl.class.getName());
 
     private final SerieRepository serieRepository;
     private final MovieRepository movieRepository;
@@ -40,12 +43,16 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public void addNewMovie(Movie movie){
-        rabbitTemplate.convertAndSend("MovieServiceQueue",movie);
+        log.info("Received a Movie by message from Rabbit Queue to save the Movie on CatalogService...");
+        movieRepository.save(movie);
+        log.info("... Movie saved at Catalog's database!");
     }
 
     @Override
     public void addNewSerie(Serie serie) {
-        rabbitTemplate.convertAndSend("SerieServiceQueue",serie);
+        log.info("Received a Series by message from Rabbit Queue to save the Series on CatalogService...");
+        serieRepository.save(serie);
+        log.info("... Series saved at Catalog's database!");
     }
 
 

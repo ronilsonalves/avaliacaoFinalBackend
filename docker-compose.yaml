@@ -13,7 +13,16 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - db-volume:/var/lib/mysql
+      - db-mysql-volume:/var/lib/mysql
+    networks:
+      - servidores
+
+  mongo-service:
+    image: mongo
+    restart: always
+    container_name: mongo-service
+    ports:
+      - "27017:27017"
     networks:
       - servidores
 
@@ -81,9 +90,9 @@ services:
     networks:
       - servidores
 
-  serie-service:
+  series-service:
     tty: true
-    container_name: serie-service
+    container_name: series-service
     build: serieService
     ports:
       - "8092:8092"
@@ -92,6 +101,7 @@ services:
       - config-service
       - rabbitmq-service
       - zipkin-service
+      - mongo-service
     networks:
       - servidores
 
@@ -106,6 +116,7 @@ services:
       - config-service
       - rabbitmq-service
       - zipkin-service
+      - mongo-service
     networks:
       - servidores
 
@@ -114,4 +125,4 @@ networks:
     driver: bridge
 
 volumes:
-  db-volume: {}
+  db-mysql-volume: {}
