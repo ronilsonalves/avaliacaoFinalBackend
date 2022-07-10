@@ -39,6 +39,8 @@ public class MovieServiceImpl implements MovieService {
     @CircuitBreaker(name="movie-service")
     @Retry(name="movie-service")
     public Movie saveMovie(Movie movie) {
+        String movieNameAux = movie.getName();
+        movie.setName(movieNameAux.toLowerCase());
         log.info("Saving new movie on service's database...");
         Movie movieSaved = movieRepository.save(movie);
         log.info("Movie saved on db!\n Now sending message to Rabbit Queue to update data on catalogService...");
